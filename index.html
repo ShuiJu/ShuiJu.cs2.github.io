@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <!-- Basic page metadata -->
+    <title>CSGO快捷alias定义复制器</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Styling for the page -->
+    
+
+    <style>
+        /* Global style for the body */
+      body {
+        font-size: large;
+      font-family: Microsoft YaHei, Helvetica, sans-serif;
+      background-color: #808080;
+      color: #FFFFFF;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+      }
+
+      /* Styling for form's textarea and button */
+      form, form textarea, form button {
+        font-size: large;
+      font-family: Microsoft YaHei, Helvetica, sans-serif;
+      font-weight: bold;
+      -webkit-text-stroke-width: 0px;
+        -webkit-text-stroke-color: black;
+      }
+      /* Styling for the paragraph text, add text stroke.*/
+      label, p {
+        font-size: larger;
+      font-weight: bold;
+      color: #FFFFFF;
+      -webkit-text-stroke-width: 0.5px;
+        -webkit-text-stroke-color: black;
+      }
+        
+
+
+    </style>
+  </head>
+  <body>
+    <!-- Content is centered -->
+    <center>
+        <!-- Main title -->
+      <h1 style="color: #FFFFFF;">CSGO快捷alias定义复制器</h1>
+      <!-- Individual forms for different alias -->
+      <!-- Each form contains a textarea with the alias and a button to copy the content of the textarea -->
+        <p>把下面这些分别复制到控制台后回车：</p>
+      <form>
+        <textarea id="myText1" rows="1" cols="50">alias +fd "+forward"; alias -fd "-forward";</textarea>
+        <br>
+
+        <button type="button" onclick="myFunction('myText1', this)">复制以上定义</button>
+
+      </form>
+      <form>
+        <textarea id="myText2" rows="1" cols="50">alias +jp "+jump;-jump";</textarea>
+        <br>
+        <button type="button" onclick="myFunction('myText2', this)">复制以上定义</button>
+
+      </form>
+      <form>
+        <textarea id="myText3" rows="1" cols="50">alias +ak "-attack;-attack2";</textarea>
+        <br>
+        <button type="button" onclick="myFunction('myText3', this)">复制以上定义</button>
+
+      </form>
+      <form>
+        <textarea id="myText4" rows="1" cols="50">alias +opHJump "+jump;+duck;"</textarea>
+        <br>
+        <button type="button" onclick="myFunction('myText4', this)">复制以上定义</button>
+
+      </form>
+      <form>
+        <textarea id="myText5" rows="1" cols="50">alias -opHJump "-jump;-duck;"; </textarea>
+        <br>
+        <button type="button" onclick="myFunction('myText5', this)">复制以上定义</button>
+
+      </form>
+      <form>
+        <textarea id="myText6" rows="1" cols="50">alias +inspectknife "slot3";</textarea>
+        <br>
+        <button type="button" onclick="myFunction('myText6', this)">复制以上定义</button>
+
+      </form>
+      <form>
+        <textarea id="myText7" rows="1" cols="50">alias -inspectknife "+lookatweapon;-lookatweapon";</textarea>
+        <br>
+        <button type="button" onclick="myFunction('myText7', this)">复制以上定义（切刀时检视）</button>
+
+      </form>
+
+      <p>====================================</p>
+
+      <p>把下面这些复制到CFG文件中：</p>
+      
+      <form>
+        <!-- Keybind Inputs -->
+        <label for="bind1">Key for 大跳: </label>
+        <input type="text" id="bind1" value="c" oninput="updateBindings()" maxlength="1">
+        <br>
+        <label for="bind2">Key for 发刀: </label>
+        <input type="text" id="bind2" value="o" oninput="updateBindings()" maxlength="1">
+        <br>
+        <label for="bind3">Key for 跳投: </label>
+        <input type="text" id="bind3" value="alt" oninput="updateBindings()" maxlength="3">
+        <br>
+        <label for="bind4">Key for 前跳投: </label>
+        <input type="text" id="bind4" value="p" oninput="updateBindings()" maxlength="1">
+        <br>
+        <label for="bind5">Key for 检视: </label>
+        <input type="text" id="bind5" value="3" oninput="updateBindings()" maxlength="1">
+        <br>
+        <br>
+        <!-- Main Textarea -->
+        <textarea id="myText8" rows="5" cols="50">
+bind "c" "+opHJump;"; //一键大跳
+bind "o" "say_team !drop"; //一键发刀
+bind "alt" "+jp;+ak"; //一键跳投
+bind "p" "+fd;+jp;+ak"; //一键前跳投
+bind "3" "+inspectknife";//切刀时检视</textarea>
+        <br>
+        <button type="button" onclick="myFunction('myText8', this)">复制以上键位绑定</button>
+
+      </form>
+      <script>
+        // Update the textarea with the new bindings
+        function updateBindings() {
+            // Fetching the values from the keybind input fields
+            // 获取键绑定输入字段的值
+            var bind1 = document.getElementById("bind1").value;
+            var bind2 = document.getElementById("bind2").value;
+            var bind3 = document.getElementById("bind3").value;
+            var bind4 = document.getElementById("bind4").value;
+            var bind5 = document.getElementById("bind5").value;
+            var updatedContent = `
+bind "${bind1}" "+opHJump;"; 
+bind "${bind2}" "say_team !drop"; 
+bind "${bind3}" "+jp;+ak"; 
+bind "${bind4}" "+fd;+jp;+ak"; 
+bind "${bind5}" "+inspectknife";`;
+            document.getElementById("myText8").innerText = updatedContent.trim();
+        }
+        // Copy the content of the textarea to the clipboard
+        function myFunction(textAreaId, button) {
+    var copyText = document.getElementById(textAreaId);
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+
+    var originalText = button.innerText;  // Store the original text of the button
+    button.innerText = '已复制';           // Change the button text to "已复制"
+
+    setTimeout(function() {
+        button.innerText = originalText;  // Restore the original text after 2 seconds
+    }, 200000); // 2000 milliseconds = 2 seconds
+}
+
+      </script>
+    </center>
+  </body>
+</html>
